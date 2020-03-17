@@ -8,34 +8,38 @@ var HelloWorldLayer = cc.Layer.extend({
         var size = cc.winSize;
 
         cc.spriteFrameCache.addSpriteFrames(res.gamble);
+
         var sprite = new cc.Sprite();
         sprite.initWithSpriteFrameName("2D.png");
+
+        //  CREACION DEL EFECTO DEL GIRO DE LA CARTA
+        var actionScaleTurn = new cc.ScaleTo(1, 0, 1);
+        sprite.runAction(actionScaleTurn);
 
         sprite.attr({
             x: size.width / 2,
             y: size.height / 2
         });
-
         this.addChild(sprite, 0);
 
         return true;
     }
 });
 
-    var FlipXTest = HelloWorldLayer.extend({
-    title:function () {
-        return "FlipX3D";
-    },
-    code:function () {
-        return "a = cc.flipX3D(duration )";
-    },
-    getEffect:function(duration) {
-        var a = cc.flipX3D.create(2);
-        var delay = cc.delayTime.create(2);
-        var r = a.reverse();
-        return cc.sequence.create( a, delay, r );
-    }
-});
+//     var FlipXTest = HelloWorldLayer.extend({
+//     title:function () {
+//         return "FlipX3D";
+//     },
+//     code:function () {
+//         return "a = cc.flipX3D(duration )";
+//     },
+//     getEffect:function(duration) {
+//         var a = cc.flipX3D.create(2);
+//         var delay = cc.delayTime.create(2);
+//         var r = a.reverse();
+//         return cc.sequence.create( a, delay, r );
+//     }
+// });
 
 
 var HelloWorldScene = cc.Scene.extend({

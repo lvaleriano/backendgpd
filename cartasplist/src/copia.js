@@ -10,11 +10,11 @@ var HelloWorldLayer = cc.Layer.extend({
         var sprite = new cc.Sprite();
         sprite.initWithSpriteFrameName("gamble_2.png");
 
-        this.sprite.attr({
+        sprite.attr({
             x: size.width / 2,
             y: size.height / 2
         });
-        this.addChild(this.sprite, 0);
+        this.addChild(sprite, 0);
 
         var listener1 = cc.EventListener.create({       //Creamos el evento y el metodo
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
