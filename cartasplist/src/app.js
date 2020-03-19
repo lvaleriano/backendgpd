@@ -23,7 +23,7 @@ var HelloWorldLayer = cc.Layer.extend({
         button.x = size.width / 6;
         button.y = size.height / 6;
         button.setTouchEnabled(true);
-        button.addTouchEventListener(listener1, sprite);
+        button.addTouchEventListener(this.buttonListener.bind(this));
         this.addChild(button);
 
         var listener1 = cc.EventListener.create({       //Creamos el evento o listener y el metodo
@@ -52,6 +52,11 @@ var HelloWorldLayer = cc.Layer.extend({
 
 
         return true;
+    },
+
+    buttonListener:function()
+    {
+        console.log("button listener");
     }
 });
 
