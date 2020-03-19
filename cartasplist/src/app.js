@@ -1,7 +1,6 @@
-var sprite2;
+
 var HelloWorldLayer = cc.Layer.extend({
     sprite:null,
-
 
     ctor:function () {
 
@@ -9,7 +8,7 @@ var HelloWorldLayer = cc.Layer.extend({
 
         var size = cc.winSize;
 
-
+        // CREAMOS EL BOTON Y LLAMAMOS A LA FUNCION PARA EFECTUAR EL EVENTO, PASANDO COMO PARAMETRO UNA FUNCION A IMPLEMENTAR
         var button = new ccui.Button(res.Button_png);
         button.loadTextures();
         button.setTitleText("GIRAR");
@@ -23,7 +22,7 @@ var HelloWorldLayer = cc.Layer.extend({
 
         return true;
     },
-
+    // FUNCION IMPLEMENTADA, QUE CREA EL SPRITE Y REALIZA EL GIRO CUANDO PRESIONAMOS EL BOTON
     buttonListener:function(sender,type)    {
         var size = cc.winSize;
         cc.spriteFrameCache.addSpriteFrames(res.gamble);
@@ -39,9 +38,7 @@ var HelloWorldLayer = cc.Layer.extend({
         sprite.runAction(actionScaleTurn);
     }
 
-
 });
-
 
 var HelloWorldScene = cc.Scene.extend({
     onEnter:function () {
@@ -50,4 +47,3 @@ var HelloWorldScene = cc.Scene.extend({
         this.addChild(layer);
     }
 });
-
