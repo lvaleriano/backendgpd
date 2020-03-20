@@ -1,49 +1,47 @@
+
 var HelloWorldLayer = cc.Layer.extend({
     sprite:null,
+
     ctor:function () {
 
         this._super();
 
         var size = cc.winSize;
 
+        // CREAMOS EL BOTON Y LLAMAMOS A LA FUNCION PARA EFECTUAR EL EVENTO, PASANDO COMO PARAMETRO UNA FUNCION A IMPLEMENTAR
+        var button = new ccui.Button(res.Button_png);
+        button.loadTextures();
+        button.setTitleText("GIRAR");
+        button.setTitleColor(255, 125, 0, 0.7);
+        button.setTitleFontSize(16);
+        button.setTitleFontName("MarkerFelt.ttf");
+        button.x = size.width / 6;
+        button.y = size.height / 6;
+        button.addTouchEventListener(this.buttonListener.bind(this));
+        this.addChild(button);
+
+        return true;
+    },
+    // FUNCION QUE IMPLEMENTA, QUE CREA EL SPRITE Y REALIZA EL GIRO CUANDO PRESIONAMOS EL BOTON
+    buttonListener:function(sender,type)    {
+        var size = cc.winSize;
         cc.spriteFrameCache.addSpriteFrames(res.gamble);
         var sprite = new cc.Sprite();
-        sprite.initWithSpriteFrameName("gamble_2.png");
-
+        sprite.initWithSpriteFrameName("2D.png");
         sprite.attr({
             x: size.width / 2,
             y: size.height / 2
         });
         this.addChild(sprite, 0);
+        // ACCIÓN PARA REDUCIR EL SPRITE (CARTA)
+        var actionScaleZoom = new cc.ScaleTo(0.5,0.5);
+        sprite.runAction(actionScaleZoom);
 
-        var listener1 = cc.EventListener.create({       //Creamos el evento y el metodo
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan: function (touch, event) { // Parametros
-                var locationInNode = sprite.convertToNodeSpace(touch.getLocation());
-                var s = sprite.getContentSize();
-                var rect = cc.rect(0, 0, s.width, s.height);
-                if (cc.rectContainsPoint(rect, locationInNode)) {
-                    sprite.setColor(cc.color.MAGENTA);
-                    sprite.setRotationX(45);
-
-                    // Creamos que la carta de una rotación
-                    var sp1 = cc.RotateBy.create(2, 180);
-                    var sp2 = cc.RotateBy.create(2, -180);
-                    var mostrar = cc.Sequence.create(sp1, sp2);
-                    sprite.runAction(mostrar);
-                    return true;
-                }
-                return false;
-            },
-            onTouchEnded: function (touch, event) {
-                sprite.setColor(cc.color.WHITE);
-            }
-        });
-        cc.eventManager.addListener(listener1, sprite); // Añadimos al controlador de eventos
-
-        return true;
+        // ACCIÓN PARA VOLTEAR LA CARTA
+        var actionScaleTurn = new cc.rotateBy(2, 0,180);
+        sprite.runAction(cc.sequence(cc.delayTime(0.5),actionScaleTurn));
     }
+
 });
 
 var HelloWorldScene = cc.Scene.extend({
@@ -53,4 +51,3 @@ var HelloWorldScene = cc.Scene.extend({
         this.addChild(layer);
     }
 });
-

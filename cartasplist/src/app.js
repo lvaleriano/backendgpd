@@ -22,7 +22,7 @@ var HelloWorldLayer = cc.Layer.extend({
 
         return true;
     },
-    // FUNCION IMPLEMENTADA, QUE CREA EL SPRITE Y REALIZA EL GIRO CUANDO PRESIONAMOS EL BOTON
+    // FUNCION QUE IMPLEMENTA, QUE CREA EL SPRITE Y REALIZA EL GIRO CUANDO PRESIONAMOS EL BOTON
     buttonListener:function(sender,type)    {
         var size = cc.winSize;
         cc.spriteFrameCache.addSpriteFrames(res.gamble);
@@ -33,9 +33,13 @@ var HelloWorldLayer = cc.Layer.extend({
             y: size.height / 2
         });
         this.addChild(sprite, 0);
+        // ACCIÓN PARA REDUCIR EL SPRITE (CARTA)
+        var actionScaleZoom = new cc.ScaleTo(0.5,0.5);
+        sprite.runAction(actionScaleZoom);
 
-        var actionScaleTurn = new cc.ScaleTo(1, 0, 1);
-        sprite.runAction(actionScaleTurn);
+        // ACCIÓN PARA VOLTEAR LA CARTA
+        var actionScaleTurn = new cc.rotateBy(2, 0,180);
+        sprite.runAction(cc.sequence(cc.delayTime(0.5),actionScaleTurn));
     }
 
 });
